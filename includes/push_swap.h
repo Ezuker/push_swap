@@ -6,7 +6,7 @@
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 21:57:41 by bcarolle          #+#    #+#             */
-/*   Updated: 2023/12/24 20:25:34 by bcarolle         ###   ########.fr       */
+/*   Updated: 2023/12/27 14:01:25 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ t_bool	do_ra(t_elem **sa);
 t_bool	do_rb(t_elem **sb);
 t_bool	do_rr(t_elem **sa, t_elem **sb);
 t_bool	do_rra(t_elem **stack_a);
+t_bool	do_rrb(t_elem **stack_b);
+t_bool	do_rrr(t_elem **sa, t_elem **sb);
 t_elem	*ft_lastelem(t_elem *lst);
 void	print_stack(t_elem	*stack_a, t_elem *stack_b);
+t_bool	ft_addback(t_elem **lst, t_elem *node);
+t_elem	*ft_str_to_elem(char *str);
+
 #endif

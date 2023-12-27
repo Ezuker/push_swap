@@ -10,6 +10,8 @@ SRC = \
 	./srcs/do_rb.c \
 	./srcs/do_rr.c \
 	./srcs/do_rra.c \
+	./srcs/do_rrb.c \
+	./srcs/do_rrr.c \
 
 OBJ = ${SRC:.c=.o}
 CC = cc
