@@ -6,7 +6,7 @@
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 21:56:50 by bcarolle          #+#    #+#             */
-/*   Updated: 2023/12/27 15:12:29 by bcarolle         ###   ########.fr       */
+/*   Updated: 2023/12/27 15:18:55 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ t_bool	parsing(int argc, char **argv, t_elem **sa)
 {
 	int		i;
 	int		j;
-	t_elem	*node;
 	char	**temp;
 
 	i = 1;
-	j = 0;
+	j = -1;
 	while (i < argc)
 	{
 		if (!only_nb(argv[i]))
@@ -56,20 +55,13 @@ t_bool	parsing(int argc, char **argv, t_elem **sa)
 			return (false);
 		}
 		if (ft_strlen(argv[i]) <= 2)
-		{
-			node = ft_str_to_elem(argv[i]);
-			ft_addback(sa, node);
-		}
+			ft_addback(sa, ft_str_to_elem(argv[i]));
 		else
 		{
 			temp = ft_split(argv[i], ' ');
-			while (temp[j] != NULL)
-			{
-				node = ft_str_to_elem(temp[j]);
-				ft_addback(sa, node);
-				j++;
-			}
-			j = 0;
+			while (temp[++j] != NULL)
+				ft_addback(sa, ft_str_to_elem(temp[j]));
+			j = -1;
 		}
 		i++;
 	}
