@@ -6,13 +6,13 @@
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 20:13:08 by bcarolle          #+#    #+#             */
-/*   Updated: 2023/12/27 11:49:54 by bcarolle         ###   ########.fr       */
+/*   Updated: 2023/12/27 15:57:43 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
 
-t_bool	do_rra(t_elem **stack_a)
+t_bool	do_rra(t_elem **stack_a, t_bool print)
 {
 	t_elem	*last;
 	t_elem	*temp;
@@ -23,8 +23,10 @@ t_bool	do_rra(t_elem **stack_a)
 	last->prev->next = NULL;
 	last->prev = NULL;
 	*stack_a = last;
-	(*stack_a)->prev = NULL;
+	last->next->prev = last;
 	last = ft_lastelem(*stack_a);
 	last->next = NULL;
+	if (print)
+		ft_printf("rra\n");
 	return (true);
 }

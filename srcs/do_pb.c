@@ -6,7 +6,7 @@
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:44:40 by bcarolle          #+#    #+#             */
-/*   Updated: 2023/12/24 15:15:17 by bcarolle         ###   ########.fr       */
+/*   Updated: 2023/12/27 15:44:21 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ t_bool	do_pb(t_elem **sa, t_elem **sb)
 	(*sb)->next = head;
 	(*sb)->prev = NULL;
 	(*sa)->prev = NULL;
+	ft_printf("pb\n");
 	return (true);
 }

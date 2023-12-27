@@ -6,7 +6,7 @@
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 21:56:50 by bcarolle          #+#    #+#             */
-/*   Updated: 2023/12/27 15:18:55 by bcarolle         ###   ########.fr       */
+/*   Updated: 2023/12/27 16:22:53 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,23 +75,13 @@ int	main(int argc, char **argv)
 
 	sa = NULL;
 	sb = NULL;
-	if (!parsing(argc, argv, &sa))
+	if (argc < 2 || !parsing(argc, argv, &sa))
 		return (0);
-	// sb = NULL;
-	// sa = malloc(sizeof(t_elem));
-	// sa->number = 10;
-	// sa->next = malloc(sizeof(t_elem));
-	// sa->next->prev = sa;
-	// sa->next->number = 45;
-	// sa->next->next = malloc(sizeof(t_elem));
-	// sa->next->next->number = 12;
-	// sa->next->next->prev = sa->next;
-	// sa->next->next->next = malloc(sizeof(t_elem));
-	// sa->next->next->next->number = 32;
-	// sa->next->next->next->prev = sa->next->next;
-	// sa->next->next->next->next = NULL;
-
-	print_stack(sa, sb);
-	do_rra(&sa);
-	print_stack(sa, sb);
+	int i = 0;
+	while (i < 100)
+	{
+		print_data(sa);
+		do_sa(&sa, 1);
+		i++;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/24 10:41:22 by bcarolle          #+#    #+#             */
-/*   Updated: 2023/12/24 15:20:03 by bcarolle         ###   ########.fr       */
+/*   Updated: 2023/12/27 15:44:11 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ t_bool	do_pa(t_elem **sa, t_elem **sb)
 	(*sa)->next = head;
 	(*sa)->prev = NULL;
 	(*sb)->prev = NULL;
+	ft_printf("pa\n");
 	return (true);
 }

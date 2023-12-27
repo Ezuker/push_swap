@@ -6,7 +6,7 @@
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 23:02:32 by bcarolle          #+#    #+#             */
-/*   Updated: 2023/12/27 14:05:37 by bcarolle         ###   ########.fr       */
+/*   Updated: 2023/12/27 16:21:56 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,18 @@ void	print_stack(t_elem	*stack_a, t_elem *stack_b)
 			stack_b = stack_b->next;
 		}
 		ft_printf("\n");
+	}
+}
+
+void	print_data(t_elem *stack_a)
+{
+	while (stack_a != NULL)
+	{
+		ft_printf("content = %d\n", stack_a->number);
+		ft_printf("actual = %p\n", stack_a);
+		ft_printf("prev = %p\n", stack_a->prev);
+		ft_printf("next = %p\n\n", stack_a->next);
+		stack_a = stack_a->next;
 	}
 }
 
