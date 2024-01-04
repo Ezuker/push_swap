@@ -39,15 +39,42 @@ t_bool	only_nb(char *str)
 	return (false);
 }
 
+t_bool	repeated_number(int argc, char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 1;
+	argv++;
+	while (i < argc - 1)
+	{
+		while (j < argc - 1)
+		{
+			if (i != j && !ft_strcmp(argv[i], argv[j]))
+			{
+				ft_printf("Error\n");
+				return (true);
+			}
+			j++;
+		}
+		j = 0;
+		i++;
+	}
+	return (false);
+}
+
 t_bool	parsing(int argc, char **argv, t_elem **sa)
 {
 	int		i;
 	int		j;
 	char	**temp;
 
-	i = 1;
+	i = 0;
 	j = -1;
-	while (i < argc)
+	if (repeated_number(argc, argv))
+		return (false);
+	while (++i < argc)
 	{
 		if (!only_nb(argv[i]))
 		{
@@ -63,7 +90,6 @@ t_bool	parsing(int argc, char **argv, t_elem **sa)
 				ft_addback(sa, ft_str_to_elem(temp[j]));
 			j = -1;
 		}
-		i++;
 	}
 	return (true);
 }
@@ -71,16 +97,13 @@ t_bool	parsing(int argc, char **argv, t_elem **sa)
 int	main(int argc, char **argv)
 {
 	t_elem	*sa;
-	t_elem	*sb;
 
 	sa = NULL;
-	sb = NULL;
 	if (argc < 2 || !parsing(argc, argv, &sa))
 		return (0);
 	int i = 0;
 	while (i < 100)
 	{
-		print_data(sa);
 		do_sa(&sa, 1);
 		i++;
 	}

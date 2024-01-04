@@ -68,6 +68,11 @@ t_bool	parsing(int argc, char **argv, t_elem **sa)
 	return (true);
 }
 
+void read_stdout(t_elem	**sa)
+{
+
+}
+
 int	main(int argc, char **argv)
 {
 	t_elem	*sa;
@@ -75,5 +80,5 @@ int	main(int argc, char **argv)
 	sa = NULL;
 	if (argc < 2 || !parsing(argc, argv, &sa))
 		return (0);
-	
+	read_stdout(&sa);
 }
