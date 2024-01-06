@@ -12,86 +12,45 @@
 
 #include "../includes/push_swap.h"
 
-t_bool	only_nb(char *str)
+t_bool	is_sorted(t_elem *stack)
 {
-	int		i;
-	t_bool	one_num;
-
-	i = 0;
-	one_num = false;
-	while (str[i] != '\0')
+	while (stack->next)
 	{
-		if (ft_isdigit(str[i]))
-		{
-			one_num = true;
-			i++;
-		}
-		else if (str[i] == 32)
-			i++;
-		else if (!((str[i] == 45 || str[i] == 43)
-				&& (ft_isdigit(str[i + 1]))))
+		if (stack->number > stack->next->number)
 			return (false);
-		else
-			i++;
-	}
-	if (one_num)
-		return (true);
-	return (false);
-}
-
-t_bool	repeated_number(int argc, char **argv)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 1;
-	argv++;
-	while (i < argc - 1)
-	{
-		while (j < argc - 1)
-		{
-			if (i != j && !ft_strcmp(argv[i], argv[j]))
-			{
-				ft_printf("Error\n");
-				return (true);
-			}
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-	return (false);
-}
-
-t_bool	parsing(int argc, char **argv, t_elem **sa)
-{
-	int		i;
-	int		j;
-	char	**temp;
-
-	i = 0;
-	j = -1;
-	if (repeated_number(argc, argv))
-		return (false);
-	while (++i < argc)
-	{
-		if (!only_nb(argv[i]))
-		{
-			ft_printf("Error\n");
-			return (false);
-		}
-		if (ft_strlen(argv[i]) <= 2)
-			ft_addback(sa, ft_str_to_elem(argv[i]));
-		else
-		{
-			temp = ft_split(argv[i], ' ');
-			while (temp[++j] != NULL)
-				ft_addback(sa, ft_str_to_elem(temp[j]));
-			j = -1;
-		}
+		stack = stack->next;
 	}
 	return (true);
+}
+
+void	sort_three(t_elem	**stack)
+{
+	while (!is_sorted(*stack))
+	{
+		if (ft_lastelem(*stack)->number == get_max_stack(*stack)->number)
+			do_sa(stack, 1);
+		else if ((*stack)->number == get_max_stack(*stack)->number
+			&& ft_lastelem(*stack)->number == get_min_stack(*stack)->number)
+		{
+			do_sa(stack, 1);
+			do_rra(stack, 1);
+		}
+		else if ((*stack)->number == get_max_stack(*stack)->number
+			&& ft_lastelem(*stack)->number != get_min_stack(*stack)->number)
+			do_ra(stack, 1);
+		else if ((*stack)->number == get_min_stack(*stack)->number)
+		{
+			do_rra(stack, 1);
+			do_sa(stack, 1);
+		}
+		else
+			do_rra(stack, 1);
+	}
+}
+
+void	mechanical_turk(t_elem	**stack)
+{
+
 }
 
 int	main(int argc, char **argv)
@@ -101,10 +60,7 @@ int	main(int argc, char **argv)
 	sa = NULL;
 	if (argc < 2 || !parsing(argc, argv, &sa))
 		return (0);
-	int i = 0;
-	while (i < 100)
-	{
-		do_sa(&sa, 1);
-		i++;
-	}
+	if (stack_length(sa) == 3)
+		sort_three(&sa);
 }
+
