@@ -40,7 +40,12 @@ void	print_data(t_elem *stack_a)
 		ft_printf("content = %d\n", stack_a->number);
 		ft_printf("actual = %p\n", stack_a);
 		ft_printf("prev = %p\n", stack_a->prev);
-		ft_printf("next = %p\n\n", stack_a->next);
+		ft_printf("next = %p\n", stack_a->next);
+		ft_printf("index = %d\n", stack_a->index);
+		ft_printf("target b = %p ", stack_a->target);
+		if (stack_a->target)
+			ft_printf("%d", stack_a->target->number);
+		ft_printf("\n\n");
 		stack_a = stack_a->next;
 	}
 }

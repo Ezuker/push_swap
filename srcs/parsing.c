@@ -64,6 +64,19 @@ t_bool	repeated_number(int argc, char **argv)
 	return (false);
 }
 
+void	add_index(t_elem	*sa)
+{
+	int	i;
+
+	i = 0;
+	while (sa)
+	{
+		sa->index = i;
+		sa = sa->next;
+		i++;
+	}
+}
+
 t_bool	parsing(int argc, char **argv, t_elem **sa)
 {
 	int		i;
@@ -91,5 +104,6 @@ t_bool	parsing(int argc, char **argv, t_elem **sa)
 			j = -1;
 		}
 	}
+	add_index(*sa);
 	return (true);
 }

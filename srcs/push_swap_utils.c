@@ -45,6 +45,8 @@ t_elem	*ft_str_to_elem(char *str)
 	node->number = ft_atoi(str);
 	node->next = NULL;
 	node->prev = NULL;
+	node->index = 0;
+	node->target = NULL;
 	return (node);
 }
 

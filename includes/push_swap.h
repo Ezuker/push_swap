@@ -23,11 +23,21 @@ typedef enum e_bool
 	true
 }			t_bool;
 
+typedef struct s_cost
+{
+	float	ra;
+	float	rb;
+	float	rra;
+	float	rrb;
+}				t_cost;
+
 typedef struct s_elem
 {
 	struct s_elem	*prev;
 	struct s_elem	*next;
+	struct s_elem	*target;
 	int				number;
+	int				index;
 }				t_elem;
 
 t_bool	do_sa(t_elem **stack, t_bool print);
@@ -52,5 +62,6 @@ t_bool	parsing(int argc, char **argv, t_elem **sa);
 int		stack_length(t_elem	*stack);
 t_elem	*get_max_stack(t_elem *stack);
 t_elem	*get_min_stack(t_elem *stack);
+void	add_index(t_elem	*sa);
 
 #endif

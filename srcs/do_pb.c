@@ -14,14 +14,29 @@
 
 t_bool	do_pb(t_elem **sa, t_elem **sb)
 {
-	t_elem	*head;
+	t_elem	*former_head;
+	t_elem	*last;
 
-	head = *sb;
-	*sb = *sa;
-	*sa = (*sa)->next;
-	(*sb)->next = head;
-	(*sb)->prev = NULL;
-	(*sa)->prev = NULL;
+	if (!sb || !*sb)
+	{
+		*sb = *sa;
+		*sa = (*sa)->next;
+		(*sb)->next = NULL;
+		(*sb)->prev = NULL;
+		(*sa)->prev = NULL;
+	}
+	else
+	{
+		last = ft_lastelem(*sb);
+		former_head = *sb;
+		*sb = *sa;
+		*sa = (*sa)->next;
+		(*sb)->next = former_head;
+		(*sb)->next->prev = (*sb);
+		(*sb)->prev = NULL;
+		(*sa)->prev = NULL;
+		last->next = NULL;
+	}
 	ft_printf("pb\n");
 	return (true);
 }
