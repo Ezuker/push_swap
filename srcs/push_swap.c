@@ -61,11 +61,11 @@ void	push_two(t_elem	**sa, t_elem	**sb)
 
 void	set_target_a(t_elem *sa, t_elem *sb)
 {
-	int		delta;
+	float	delta;
 	t_elem	*save;
 	t_elem	*save_b;
 
-	delta = 2147483647;
+	delta = 2147483648.0;
 	save_b = sb;
 	while (sa)
 	{
@@ -79,55 +79,86 @@ void	set_target_a(t_elem *sa, t_elem *sb)
 			sb = sb->next;
 		}
 		sb = save_b;
-		if (delta == 2147483647)
+		if (delta == 2147483648.0)
 			sa->target = get_max_stack(sb);
 		else
 			sa->target = save;
-		delta = 2147483647;
+		delta = 2147483648.0;
 		save = NULL;
 		sa = sa->next;
 	}
 }
 
-void	cost_analysis(t_elem *sa, t_elem *sb, t_cost *cost)
+t_elem	*cost_analysis(t_elem *sa, t_elem *sb)
 {
-	float	median_a;
-	float	median_b;
+	int		total;
 	int		save;
-	int		actu;
+	t_elem	*save_id;
+	int		length;
 
-	save = 0;
-	median_a = stack_length(sa) / 2;
-	median_b = stack_length(sb) / 2;
+	save = 2147483647;
+	length = stack_length(sa);
 	while (sa)
 	{
-		if (sa->index > median_a)
-			cost->ra += stack_length(sa) - sa->index;
+		if (sa->index > length / 2)
+			total = length - sa->index;
 		else
-			actu += sa->index;
-		if (sa->target->index > median_b)
-			actu += stack_length(sb) - sb->index;
+			total = sa->index;
+		if (sa->target->index > stack_length(sb) / 2)
+			total += stack_length(sb) - sa->target->index;
 		else
-			actu += sb->index;
-		if (save < actu)
-			save = actu;
-		actu = 0;
+			total += sa->target->index;
+		if (save > total)
+		{
+			save = total;
+			save_id = sa;
+		}
 		sa = sa->next;
 	}
+	return (save_id);
+}
+
+void	do_action(t_elem *id, t_elem **sa, t_elem **sb)
+{
+	int	i;
+	int	it;
+
+	it = -1;
+	if (id->index > stack_length(*sa) / 2)
+	{
+		i = stack_length(*sa) - id->index;
+		while (++it < i)
+			do_rra(sa, 1);
+	}
+	else
+		while (++it < id->index)
+			do_ra(sa, 1);
+	it = -1;
+	if (id->target->index > stack_length(*sb) / 2)
+	{
+		i = stack_length(*sb) - id->target->index;
+		while (++it < i)
+			do_rrb(sb, 1);
+	}
+	else
+		while (++it < id->target->index)
+			do_rb(sb, 1);
 }
 
 void	mechanical_turk(t_elem	**sa, t_elem	**sb)
 {
-	t_cost	*cost;
+	t_elem	*save_id;
 
-	cost = malloc(sizeof(t_cost));
 	push_two(sa, sb);
-	set_target_a(*sa, *sb);
-	add_index(*sa);
-	add_index(*sb);
-	cost_analysis(*sa, *sb, cost);
-	print_data(*sa);
-	print_data(*sb);
+	while (stack_length(*sa) > 3)
+	{
+		set_target_a(*sa, *sb);
+		add_index(*sa);
+		add_index(*sb);
+		save_id = cost_analysis(*sa, *sb);
+		do_action(save_id, sa, sb);
+		do_pb(sa, sb);
+	}
 }
 
 int	main(int argc, char **argv)
