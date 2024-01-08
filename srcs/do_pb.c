@@ -34,7 +34,8 @@ t_bool	do_pb(t_elem **sa, t_elem **sb)
 		(*sb)->next = former_head;
 		(*sb)->next->prev = (*sb);
 		(*sb)->prev = NULL;
-		(*sa)->prev = NULL;
+		if (*sa)
+			(*sa)->prev = NULL;
 		last->next = NULL;
 	}
 	ft_printf("pb\n");

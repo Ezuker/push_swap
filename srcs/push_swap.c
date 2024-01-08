@@ -89,6 +89,36 @@ void	set_target_a(t_elem *sa, t_elem *sb)
 	}
 }
 
+void	set_target_b(t_elem *sa, t_elem *sb)
+{
+	float	delta;
+	t_elem	*save;
+	t_elem	*save_a;
+
+	delta = 2147483648.0;
+	save_a = sa;
+	while (sb)
+	{
+		while (sa)
+		{
+			if (sb->number < sa->number && delta > sb->number - sa->number)
+			{
+				delta = sb->number - sa->number;
+				save = sa;
+			}
+			sa = sa->next;
+		}
+		sa = save_a;
+		if (delta == 2147483648.0)
+			sb->target = get_min_stack(sa);
+		else
+			sb->target = save;
+		delta = 2147483648.0;
+		save = NULL;
+		sb = sb->next;
+	}
+}
+
 t_elem	*cost_analysis(t_elem *sa, t_elem *sb)
 {
 	int		total;
@@ -158,6 +188,17 @@ void	mechanical_turk(t_elem	**sa, t_elem	**sb)
 		save_id = cost_analysis(*sa, *sb);
 		do_action(save_id, sa, sb);
 		do_pb(sa, sb);
+	}
+	sort_three(sa);
+	while (stack_length(*sb) != 0)
+	{
+		set_target_b(*sa, *sb);
+		add_index(*sa);
+		add_index(*sb);
+		save_id = cost_analysis(*sb, *sa);
+		do_action(save_id, sa, sb);
+		do_pa(sa, sb);
+		print_stack(*sa, *sb);
 	}
 }
 

@@ -14,14 +14,30 @@
 
 t_bool	do_pa(t_elem **sa, t_elem **sb)
 {
-	t_elem	*head;
+	t_elem	*former_head;
+	t_elem	*last;
 
-	head = *sa;
-	*sa = *sb;
-	*sb = (*sb)->next;
-	(*sa)->next = head;
-	(*sa)->prev = NULL;
-	(*sb)->prev = NULL;
+	if (!sa || !*sa)
+	{
+		*sa = *sb;
+		*sb = (*sb)->next;
+		(*sa)->next = NULL;
+		(*sa)->prev = NULL;
+		(*sb)->prev = NULL;
+	}
+	else
+	{
+		last = ft_lastelem(*sa);
+		former_head = *sa;
+		*sa = *sb;
+		*sb = (*sb)->next;
+		(*sa)->next = former_head;
+		(*sa)->next->prev = (*sa);
+		(*sa)->prev = NULL;
+		if (*sb)
+			(*sb)->prev = NULL;
+		last->next = NULL;
+	}
 	ft_printf("pa\n");
 	return (true);
 }
