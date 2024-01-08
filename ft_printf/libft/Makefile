@@ -36,6 +36,7 @@ SRC = \
 	ft_striteri.c \
 	ft_strcpy.c \
 	ft_strstr.c \
+	ft_abs.c \
 
 BONUS = \
 	ft_lstnew.c \

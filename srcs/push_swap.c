@@ -89,8 +89,23 @@ void	set_target_a(t_elem *sa, t_elem *sb)
 	}
 }
 
+float	get_bigger_delta(int sb_number, int sa_number)
+{
+	float	delta;
+
+	if (sb_number < sa_number)
+	{
+		delta = sb_number - sa_number;
+		delta = ft_abs(delta);
+		return (delta);
+	}
+	else
+		return (2147483648.0);
+}
+
 void	set_target_b(t_elem *sa, t_elem *sb)
 {
+	float	new_delta;
 	float	delta;
 	t_elem	*save;
 	t_elem	*save_a;
@@ -101,15 +116,14 @@ void	set_target_b(t_elem *sa, t_elem *sb)
 	{
 		while (sa)
 		{
-			if (sb->number < sa->number && delta > sb->number - sa->number)
-			{
-				delta = sb->number - sa->number;
+			new_delta = get_bigger_delta(sb->number, sa->number);
+			if (sb->number < sa->number && delta > new_delta)
 				save = sa;
-			}
+			delta = new_delta;
 			sa = sa->next;
 		}
 		sa = save_a;
-		if (delta == 2147483648.0)
+		if (!save)
 			sb->target = get_min_stack(sa);
 		else
 			sb->target = save;
