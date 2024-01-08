@@ -118,8 +118,10 @@ void	set_target_b(t_elem *sa, t_elem *sb)
 		{
 			new_delta = get_bigger_delta(sb->number, sa->number);
 			if (sb->number < sa->number && delta > new_delta)
+			{
 				save = sa;
-			delta = new_delta;
+				delta = new_delta;
+			}
 			sa = sa->next;
 		}
 		sa = save_a;
@@ -189,6 +191,29 @@ void	do_action(t_elem *id, t_elem **sa, t_elem **sb)
 			do_rb(sb, 1);
 }
 
+void	final_sort(t_elem	**sa)
+{
+	t_elem	*min;
+	int		cost;
+	int		i;
+
+	i = -1;
+	min = get_min_stack(*sa);
+	cost = 0;
+	if (min->index > stack_length(*sa) / 2)
+	{
+		cost = stack_length(*sa) - min->index;
+		while (++i < cost)
+			do_rra(sa, 1);
+	}
+	else
+	{
+		cost = min->index;
+		while (++i < cost)
+			do_ra(sa, 1);
+	}
+}
+
 void	mechanical_turk(t_elem	**sa, t_elem	**sb)
 {
 	t_elem	*save_id;
@@ -210,10 +235,11 @@ void	mechanical_turk(t_elem	**sa, t_elem	**sb)
 		add_index(*sa);
 		add_index(*sb);
 		save_id = cost_analysis(*sb, *sa);
-		do_action(save_id, sa, sb);
+		do_action(save_id, sb, sa);
 		do_pa(sa, sb);
-		print_stack(*sa, *sb);
 	}
+	add_index(*sa);
+	final_sort(sa);
 }
 
 int	main(int argc, char **argv)
