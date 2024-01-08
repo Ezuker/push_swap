@@ -164,7 +164,7 @@ t_elem	*cost_analysis(t_elem *sa, t_elem *sb)
 	return (save_id);
 }
 
-void	do_action(t_elem *id, t_elem **sa, t_elem **sb)
+void	do_action_a(t_elem *id, t_elem **sa, t_elem **sb)
 {
 	int	i;
 	int	it;
@@ -189,6 +189,33 @@ void	do_action(t_elem *id, t_elem **sa, t_elem **sb)
 	else
 		while (++it < id->target->index)
 			do_rb(sb, 1);
+}
+
+void	do_action_b(t_elem *id, t_elem **sb, t_elem **sa)
+{
+	int	i;
+	int	it;
+
+	it = -1;
+	if (id->index > stack_length(*sb) / 2)
+	{
+		i = stack_length(*sb) - id->index;
+		while (++it < i)
+			do_rrb(sb, 1);
+	}
+	else
+		while (++it < id->index)
+			do_rb(sb, 1);
+	it = -1;
+	if (id->target->index > stack_length(*sa) / 2)
+	{
+		i = stack_length(*sa) - id->target->index;
+		while (++it < i)
+			do_rra(sa, 1);
+	}
+	else
+		while (++it < id->target->index)
+			do_ra(sa, 1);
 }
 
 void	final_sort(t_elem	**sa)
@@ -225,7 +252,7 @@ void	mechanical_turk(t_elem	**sa, t_elem	**sb)
 		add_index(*sa);
 		add_index(*sb);
 		save_id = cost_analysis(*sa, *sb);
-		do_action(save_id, sa, sb);
+		do_action_a(save_id, sa, sb);
 		do_pb(sa, sb);
 	}
 	sort_three(sa);
@@ -235,7 +262,7 @@ void	mechanical_turk(t_elem	**sa, t_elem	**sb)
 		add_index(*sa);
 		add_index(*sb);
 		save_id = cost_analysis(*sb, *sa);
-		do_action(save_id, sb, sa);
+		do_action_b(save_id, sb, sa);
 		do_pa(sa, sb);
 	}
 	add_index(*sa);
