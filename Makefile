@@ -16,6 +16,10 @@ SRC = \
 	./srcs/debug.c \
 	./srcs/set_targets.c \
 	./srcs/sorts.c \
+	./srcs/do_action_a.c \
+	./srcs/do_action_b.c \
+	./srcs/set_targets_utils.c \
+	./srcs/get_total.c \
 
 OBJ = ${SRC:.c=.o}
 CC = cc

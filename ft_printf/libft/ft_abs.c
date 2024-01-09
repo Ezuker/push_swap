@@ -12,9 +12,15 @@
 
 #include "libft.h"
 
-long ft_abs(long value)
+long	ft_abs(long value)
 {
-    if (value < 0)
-        return (-value);
-    return (value);
+	if (value < 0)
+		return (-value);
+	return (value);
+}
+
+int	math_round(float nb)
+{
+	nb += 0.5;
+	return ((int)(nb));
 }

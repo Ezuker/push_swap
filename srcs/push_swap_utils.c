@@ -37,19 +37,6 @@ t_bool	ft_addback(t_elem **lst, t_elem *node)
 	return (true);
 }
 
-t_elem	*ft_str_to_elem(char *str)
-{
-	t_elem	*node;
-
-	node = malloc(sizeof(t_elem));
-	node->number = ft_atoi(str);
-	node->next = NULL;
-	node->prev = NULL;
-	node->index = 0;
-	node->target = NULL;
-	return (node);
-}
-
 int	stack_length(t_elem	*stack)
 {
 	int	i;

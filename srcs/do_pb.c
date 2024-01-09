@@ -12,19 +12,22 @@
 
 #include "../includes/push_swap.h"
 
+static void	create_stack(t_elem **sa, t_elem **sb)
+{
+	*sb = *sa;
+	*sa = (*sa)->next;
+	(*sb)->next = NULL;
+	(*sb)->prev = NULL;
+	(*sa)->prev = NULL;
+}
+
 t_bool	do_pb(t_elem **sa, t_elem **sb)
 {
 	t_elem	*former_head;
 	t_elem	*last;
 
 	if (!sb || !*sb)
-	{
-		*sb = *sa;
-		*sa = (*sa)->next;
-		(*sb)->next = NULL;
-		(*sb)->prev = NULL;
-		(*sa)->prev = NULL;
-	}
+		create_stack(sa, sb);
 	else
 	{
 		last = ft_lastelem(*sb);

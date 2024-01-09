@@ -12,37 +12,8 @@
 
 #include "../includes/push_swap.h"
 
-static float	get_bigger_delta(int sa_number, int sb_number)
-{
-	float	delta;
-
-	if (sa_number > sb_number)
-	{
-		delta = sb_number - sa_number;
-		delta = ft_abs(delta);
-		return (delta);
-	}
-	else
-		return (2147483648.0);
-}
-
-static float	get_lower_delta(int sa_number, int sb_number)
-{
-	float	delta;
-
-	if (sa_number > sb_number)
-	{
-		delta = sa_number - sb_number;
-		delta = ft_abs(delta);
-		return (delta);
-	}
-	else
-		return (2147483648.0);
-}
-
 void	set_target_a(t_elem *sa, t_elem *sb)
 {
-	float	new_delta;
 	float	delta;
 	t_elem	*save;
 	t_elem	*save_b;
@@ -54,12 +25,7 @@ void	set_target_a(t_elem *sa, t_elem *sb)
 		save = NULL;
 		while (sb)
 		{
-			new_delta = get_lower_delta(sa->number, sb->number);
-			if (sa->number > sb->number && delta > new_delta)
-			{
-				save = sb;
-				delta = new_delta;
-			}
+			save = get_save_a(&delta, sa, sb, save);
 			sb = sb->next;
 		}
 		sb = save_b;
@@ -72,11 +38,8 @@ void	set_target_a(t_elem *sa, t_elem *sb)
 	}
 }
 
-
-
 void	set_target_b(t_elem *sa, t_elem *sb)
 {
-	float	new_delta;
 	float	delta;
 	t_elem	*save;
 	t_elem	*save_a;
@@ -88,12 +51,7 @@ void	set_target_b(t_elem *sa, t_elem *sb)
 		save = NULL;
 		while (sa)
 		{
-			new_delta = get_bigger_delta(sa->number, sb->number);
-			if (sb->number < sa->number && delta > new_delta)
-			{
-				save = sa;
-				delta = new_delta;
-			}
+			save = get_save_b(&delta, sa, sb, save);
 			sa = sa->next;
 		}
 		sa = save_a;

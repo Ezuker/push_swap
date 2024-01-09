@@ -53,6 +53,7 @@ void			*ft_calloc(size_t nmemb, size_t size);
 void			ft_striteri(char *s, void (*f)(unsigned int, char *));
 int				ft_strstr(char *s1, char *to_find);
 long			ft_abs(long value);
+int				math_round(float nb);
 
 typedef struct s_list
 {

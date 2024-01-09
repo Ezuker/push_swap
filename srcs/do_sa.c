@@ -14,11 +14,14 @@
 
 t_bool	do_sa(t_elem **stack, t_bool print)
 {
-	int	temp;
+	t_elem	*temp;
 
-	temp = (*stack)->number;
-	(*stack)->number = (*stack)->next->number;
-	(*stack)->next->number = temp;
+	temp = (*stack);
+	(*stack) = (*stack)->next;
+	(*stack)->prev = NULL;
+	temp->next = (*stack)->next;
+	(*stack)->next = temp;
+	temp->prev = (*stack);
 	if (print)
 		ft_printf("sa\n");
 	return (true);

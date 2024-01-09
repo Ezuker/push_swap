@@ -69,5 +69,16 @@ void	push_two(t_elem	**sa, t_elem	**sb);
 void	sort_three(t_elem	**stack);
 t_bool	is_sorted(t_elem *stack);
 void	final_sort(t_elem	**sa);
+void	do_action_b(t_elem *id, t_elem **sb, t_elem **sa);
+void	do_action_a(t_elem *id, t_elem **sa, t_elem **sb);
+float	get_bigger_delta(int sa_number, int sb_number);
+float	get_lower_delta(int sa_number, int sb_number);
+t_elem	*get_save_a(float *delta, t_elem *sa, t_elem *sb, t_elem *save);
+t_elem	*get_save_b(float *delta, t_elem *sa, t_elem *sb, t_elem *save);
+int		get_total_above_median(int length_a, t_elem *sa, t_elem *sb);
+int		get_total_below_median(t_elem *sa);
+int		get_total_other(int length_a, t_elem *sa, t_elem *sb);
+t_elem	*cost_analysis(t_elem *sa, t_elem *sb);
+void	sort_four(t_elem **sa, t_elem **sb);
 
 #endif

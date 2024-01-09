@@ -81,3 +81,23 @@ void	push_two(t_elem	**sa, t_elem	**sb)
 		do_pb(sa, sb);
 	}
 }
+
+void	sort_four(t_elem **sa, t_elem **sb)
+{
+	t_elem	*id;
+
+	do_pb(sa, sb);
+	add_index(*sa);
+	add_index(*sb);
+	sort_three(sa);
+	add_index(*sa);
+	add_index(*sb);
+	set_target_b(*sa, *sb);
+	id = cost_analysis(*sb, *sa);
+	do_action_b(id, sb, sa);
+	add_index(*sa);
+	add_index(*sb);
+	do_pa(sa, sb);
+	add_index(*sa);
+	final_sort(sa);
+}

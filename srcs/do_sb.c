@@ -14,11 +14,11 @@
 
 t_bool	do_sb(t_elem **stack, t_bool print)
 {
-	int	temp;
+	t_elem	*temp;
 
-	temp = (*stack)->number;
-	(*stack)->number = (*stack)->next->number;
-	(*stack)->next->number = temp;
+	temp = (*stack);
+	(*stack) = (*stack)->next;
+	(*stack)->next = temp;
 	if (print)
 		ft_printf("sb\n");
 	return (true);

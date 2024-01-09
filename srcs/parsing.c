@@ -6,7 +6,7 @@
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:29:32 by bcarolle          #+#    #+#             */
-/*   Updated: 2024/01/06 15:29:53 by bcarolle         ###   ########.fr       */
+/*   Updated: 2024/01/09 20:00:49 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ t_bool	repeated_number(int argc, char **argv)
 		while (j < argc - 1)
 		{
 			if (i != j && !ft_strcmp(argv[i], argv[j]))
-			{
-				ft_printf("Error\n");
 				return (true);
-			}
 			j++;
 		}
 		j = 0;
@@ -77,6 +74,21 @@ void	add_index(t_elem	*sa)
 	}
 }
 
+t_elem	*ft_str_to_elem(char *str)
+{
+	t_elem	*node;
+
+	node = malloc(sizeof(t_elem));
+	if (!node)
+		return (NULL);
+	node->number = ft_atoi(str);
+	node->next = NULL;
+	node->prev = NULL;
+	node->index = 0;
+	node->target = NULL;
+	return (node);
+}
+
 t_bool	parsing(int argc, char **argv, t_elem **sa)
 {
 	int		i;
@@ -85,25 +97,23 @@ t_bool	parsing(int argc, char **argv, t_elem **sa)
 
 	i = 0;
 	j = -1;
-	if (repeated_number(argc, argv))
-		return (false);
 	while (++i < argc)
 	{
 		if (!only_nb(argv[i]))
-		{
-			ft_printf("Error\n");
 			return (false);
-		}
 		if (ft_strlen(argv[i]) <= 2)
 			ft_addback(sa, ft_str_to_elem(argv[i]));
 		else
 		{
 			temp = ft_split(argv[i], ' ');
 			while (temp[++j] != NULL)
+			{
 				ft_addback(sa, ft_str_to_elem(temp[j]));
+				free(temp[j]);
+			}
+			free(temp);
 			j = -1;
 		}
 	}
-	add_index(*sa);
 	return (true);
 }
