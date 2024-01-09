@@ -63,5 +63,11 @@ int		stack_length(t_elem	*stack);
 t_elem	*get_max_stack(t_elem *stack);
 t_elem	*get_min_stack(t_elem *stack);
 void	add_index(t_elem	*sa);
+void	set_target_b(t_elem *sa, t_elem *sb);
+void	set_target_a(t_elem *sa, t_elem *sb);
+void	push_two(t_elem	**sa, t_elem	**sb);
+void	sort_three(t_elem	**stack);
+t_bool	is_sorted(t_elem *stack);
+void	final_sort(t_elem	**sa);
 
 #endif

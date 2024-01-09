@@ -12,127 +12,10 @@
 
 #include "../includes/push_swap.h"
 
-t_bool	is_sorted(t_elem *stack)
+int		math_round(float nb)
 {
-	while (stack->next)
-	{
-		if (stack->number > stack->next->number)
-			return (false);
-		stack = stack->next;
-	}
-	return (true);
-}
-
-void	sort_three(t_elem	**stack)
-{
-	while (!is_sorted(*stack))
-	{
-		if (ft_lastelem(*stack)->number == get_max_stack(*stack)->number)
-			do_sa(stack, 1);
-		else if ((*stack)->number == get_max_stack(*stack)->number
-			&& ft_lastelem(*stack)->number == get_min_stack(*stack)->number)
-		{
-			do_sa(stack, 1);
-			do_rra(stack, 1);
-		}
-		else if ((*stack)->number == get_max_stack(*stack)->number
-			&& ft_lastelem(*stack)->number != get_min_stack(*stack)->number)
-			do_ra(stack, 1);
-		else if ((*stack)->number == get_min_stack(*stack)->number)
-		{
-			do_rra(stack, 1);
-			do_sa(stack, 1);
-		}
-		else
-			do_rra(stack, 1);
-	}
-}
-
-void	push_two(t_elem	**sa, t_elem	**sb)
-{
-	if (stack_length(*sa) == 4)
-		do_pb(sa, sb);
-	else
-	{
-		do_pb(sa, sb);
-		do_pb(sa, sb);
-	}
-}
-
-void	set_target_a(t_elem *sa, t_elem *sb)
-{
-	float	delta;
-	t_elem	*save;
-	t_elem	*save_b;
-
-	delta = 2147483648.0;
-	save_b = sb;
-	while (sa)
-	{
-		while (sb)
-		{
-			if (sa->number > sb->number && delta > sa->number - sb->number)
-			{
-				delta = sa->number - sb->number;
-				save = sb;
-			}
-			sb = sb->next;
-		}
-		sb = save_b;
-		if (delta == 2147483648.0)
-			sa->target = get_max_stack(sb);
-		else
-			sa->target = save;
-		delta = 2147483648.0;
-		save = NULL;
-		sa = sa->next;
-	}
-}
-
-float	get_bigger_delta(int sb_number, int sa_number)
-{
-	float	delta;
-
-	if (sb_number < sa_number)
-	{
-		delta = sb_number - sa_number;
-		delta = ft_abs(delta);
-		return (delta);
-	}
-	else
-		return (2147483648.0);
-}
-
-void	set_target_b(t_elem *sa, t_elem *sb)
-{
-	float	new_delta;
-	float	delta;
-	t_elem	*save;
-	t_elem	*save_a;
-
-	delta = 2147483648.0;
-	save_a = sa;
-	while (sb)
-	{
-		while (sa)
-		{
-			new_delta = get_bigger_delta(sb->number, sa->number);
-			if (sb->number < sa->number && delta > new_delta)
-			{
-				save = sa;
-				delta = new_delta;
-			}
-			sa = sa->next;
-		}
-		sa = save_a;
-		if (!save)
-			sb->target = get_min_stack(sa);
-		else
-			sb->target = save;
-		delta = 2147483648.0;
-		save = NULL;
-		sb = sb->next;
-	}
+	nb += 0.5;
+	return ((int)(nb));
 }
 
 t_elem	*cost_analysis(t_elem *sa, t_elem *sb)
@@ -143,17 +26,34 @@ t_elem	*cost_analysis(t_elem *sa, t_elem *sb)
 	int		length;
 
 	save = 2147483647;
-	length = stack_length(sa);
+	length = (stack_length(sa));
 	while (sa)
 	{
-		if (sa->index > length / 2)
-			total = length - sa->index;
+		if (sa->index >= math_round(length / 2.0) && sa->target->index >= math_round(stack_length(sb) / 2.0))
+		{
+			if (length - sa->index > stack_length(sb) - sa->target->index)
+				total = length - sa->index;
+			else
+				total = stack_length(sb) - sa->target->index;
+		}
+		else if (sa->index < math_round(length / 2.0) && sa->target->index < math_round(stack_length(sb) / 2.0))
+		{
+			if (sa->index > sa->target->index)
+				total = sa->index;
+			else
+				total = sa->target->index;
+		}
 		else
-			total = sa->index;
-		if (sa->target->index > stack_length(sb) / 2)
-			total += stack_length(sb) - sa->target->index;
-		else
-			total += sa->target->index;
+		{
+			if (sa->index >= math_round(length / 2.0))
+				total = length - sa->index;
+			else
+				total = sa->index;
+			if (sa->target->index >= math_round(stack_length(sb) / 2.0))
+				total += stack_length(sb) - sa->target->index;
+			else
+				total += sa->target->index;
+		}
 		if (save > total)
 		{
 			save = total;
@@ -167,77 +67,122 @@ t_elem	*cost_analysis(t_elem *sa, t_elem *sb)
 void	do_action_a(t_elem *id, t_elem **sa, t_elem **sb)
 {
 	int	i;
+	int	j;
 	int	it;
 
 	it = -1;
-	if (id->index > stack_length(*sa) / 2)
+	if (id->index >= math_round(stack_length(*sa) / 2.0) && id->target->index >= math_round(stack_length(*sb) / 2.0))
 	{
 		i = stack_length(*sa) - id->index;
-		while (++it < i)
+		j = stack_length(*sb) - id->target->index;
+		while (i > 0 && j > 0)
+		{
+			do_rrr(sb, sa);
+			i--;
+			j--;
+		}
+		while (i-- > 0)
 			do_rra(sa, 1);
-	}
-	else
-		while (++it < id->index)
-			do_ra(sa, 1);
-	it = -1;
-	if (id->target->index > stack_length(*sb) / 2)
-	{
-		i = stack_length(*sb) - id->target->index;
-		while (++it < i)
+		while (j-- > 0)
 			do_rrb(sb, 1);
 	}
-	else
-		while (++it < id->target->index)
+	else if (id->index < math_round(stack_length(*sa) / 2.0) && id->target->index < math_round(stack_length(*sb) / 2.0))
+	{
+		i = id->index;
+		j = id->target->index;
+		while (i > 0 && j > 0)
+		{
+			do_rr(sb, sa);
+			i--;
+			j--;
+		}
+		while (i-- > 0)
+			do_ra(sa, 1);
+		while (j-- > 0)
 			do_rb(sb, 1);
+	}
+	else
+	{
+		if (id->index >= math_round(stack_length(*sa) / 2.0))
+		{
+			i = stack_length(*sa) - id->index;
+			while (++it < i)
+				do_rra(sa, 1);
+		}
+		else
+			while (++it < id->index)
+				do_ra(sa, 1);
+		it = -1;
+		if (id->target->index >= math_round(stack_length(*sb) / 2.0))
+		{
+			i = stack_length(*sb) - id->target->index;
+			while (++it < i)
+				do_rrb(sb, 1);
+		}
+		else
+			while (++it < id->target->index)
+				do_rb(sb, 1);
+	}
 }
 
 void	do_action_b(t_elem *id, t_elem **sb, t_elem **sa)
 {
 	int	i;
+	int	j;
 	int	it;
 
 	it = -1;
-	if (id->index > stack_length(*sb) / 2)
+	if (id->index >= math_round(stack_length(*sb) / 2.0) && id->target->index >= math_round(stack_length(*sa) / 2.0))
 	{
 		i = stack_length(*sb) - id->index;
-		while (++it < i)
+		j = stack_length(*sa) - id->target->index;
+		while (i > 0 && j > 0)
+		{
+			do_rrr(sa, sb);
+			i--;
+			j--;
+		}
+		while (i-- > 0)
 			do_rrb(sb, 1);
+		while (j-- > 0)
+			do_rra(sa, 1);
 	}
-	else
-		while (++it < id->index)
+	else if (id->index < math_round(stack_length(*sb) / 2.0) && id->target->index < math_round(stack_length(*sa) / 2.0))
+	{
+		i = id->index;
+		j = id->target->index;
+		while (i > 0 && j > 0)
+		{
+			do_rr(sa, sb);
+			i--;
+			j--;
+		}
+		while (i-- > 0)
 			do_rb(sb, 1);
-	it = -1;
-	if (id->target->index > stack_length(*sa) / 2)
-	{
-		i = stack_length(*sa) - id->target->index;
-		while (++it < i)
-			do_rra(sa, 1);
-	}
-	else
-		while (++it < id->target->index)
+		while (j-- > 0)
 			do_ra(sa, 1);
-}
-
-void	final_sort(t_elem	**sa)
-{
-	t_elem	*min;
-	int		cost;
-	int		i;
-
-	i = -1;
-	min = get_min_stack(*sa);
-	cost = 0;
-	if (min->index > stack_length(*sa) / 2)
-	{
-		cost = stack_length(*sa) - min->index;
-		while (++i < cost)
-			do_rra(sa, 1);
 	}
 	else
 	{
-		cost = min->index;
-		while (++i < cost)
-			do_ra(sa, 1);
+		if (id->index >= math_round(stack_length(*sb) / 2.0))
+		{
+			i = stack_length(*sb) - id->index;
+			while (++it < i)
+				do_rrb(sb, 1);
+		}
+		else
+			while (++it < id->index)
+				do_rb(sb, 1);
+		it = -1;
+		if (id->target->index >= math_round(stack_length(*sa) / 2.0))
+		{
+			i = stack_length(*sa) - id->target->index;
+			while (++it < i)
+				do_rra(sa, 1);
+		}
+		else
+			while (++it < id->target->index)
+				do_ra(sa, 1);
 	}
 }
 
@@ -248,9 +193,9 @@ void	mechanical_turk(t_elem	**sa, t_elem	**sb)
 	push_two(sa, sb);
 	while (stack_length(*sa) > 3)
 	{
-		set_target_a(*sa, *sb);
 		add_index(*sa);
 		add_index(*sb);
+		set_target_a(*sa, *sb);
 		save_id = cost_analysis(*sa, *sb);
 		do_action_a(save_id, sa, sb);
 		do_pb(sa, sb);
@@ -258,9 +203,9 @@ void	mechanical_turk(t_elem	**sa, t_elem	**sb)
 	sort_three(sa);
 	while (stack_length(*sb) != 0)
 	{
-		set_target_b(*sa, *sb);
 		add_index(*sa);
 		add_index(*sb);
+		set_target_b(*sa, *sb);
 		save_id = cost_analysis(*sb, *sa);
 		do_action_b(save_id, sb, sa);
 		do_pa(sa, sb);

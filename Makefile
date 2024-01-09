@@ -14,6 +14,8 @@ SRC = \
 	./srcs/do_rrr.c \
 	./srcs/parsing.c \
 	./srcs/debug.c \
+	./srcs/set_targets.c \
+	./srcs/sorts.c \
 
 OBJ = ${SRC:.c=.o}
 CC = cc
