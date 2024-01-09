@@ -81,16 +81,16 @@ void	ft_elem_clear(t_elem **sa)
 	}
 }
 
-void	sorting(t_elem *sa, t_elem *sb)
+void	sorting(t_elem **sa, t_elem **sb)
 {
-	if (stack_length(sa) == 2 && !is_sorted(sa))
-		do_sa(&sa, 1);
-	else if (stack_length(sa) == 3)
-		sort_three(&sa);
-	else if (stack_length(sa) == 4)
-		sort_four(&sa, &sb);
+	if (stack_length(*sa) == 2 && !is_sorted(*sa))
+		do_sa(sa, 1);
+	else if (stack_length(*sa) == 3)
+		sort_three(sa);
+	else if (stack_length(*sa) == 4)
+		sort_four(sa, sb);
 	else
-		mechanical_turk(&sa, &sb);
+		mechanical_turk(sa, sb);
 }
 
 int	main(int argc, char **argv)
@@ -112,7 +112,7 @@ int	main(int argc, char **argv)
 		ft_elem_clear(&sa);
 		return (0);
 	}
-	sorting(sa, sb);
+	sorting(&sa, &sb);
 	ft_elem_clear(&sa);
 	return (0);
 }

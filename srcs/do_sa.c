@@ -16,13 +16,19 @@ t_bool	do_sa(t_elem **stack, t_bool print)
 {
 	t_elem	*first;
 	t_elem	*second;
+	t_elem	*third;
 
 	first = *stack;
 	second = (*stack)->next;
+	third = NULL;
+	if ((*stack)->next->next)
+		third = (*stack)->next->next;
 	first->next = second->next;
 	first->prev = second;
 	second->next = first;
 	second->prev = NULL;
+	if (third)
+		third->prev = first;
 	*stack = second;
 	if (print)
 		ft_printf("sa\n");
