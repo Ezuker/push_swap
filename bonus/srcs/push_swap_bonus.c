@@ -35,11 +35,35 @@ t_bool	is_sorted(t_elem *stack)
 	return (true);
 }
 
+void	a_to_action()
+{
+	
+}
+
+void	read_stdin(t_action **action)
+{
+
+}
+
+void	checking(t_elem **sa, t_elem **sb)
+{
+	t_action	*action;
+	
+	action = NULL;
+	read_stdin(&action);
+
+	//Appliquer les actions
+
+	//verif si c'est sort
+}
+
 int	main(int argc, char **argv)
 {
 	t_elem	*sa;
+	t_elem	*sb;
 
 	sa = NULL;
+	sb = NULL;
 	if (argc < 2 || !parsing(argc, argv, &sa))
 	{
 		ft_elem_clear(&sa);
@@ -53,11 +77,7 @@ int	main(int argc, char **argv)
 		write(2, "Error\n", 6);
 		return (0);
 	}
-	if (is_sorted(sa))
-	{
-		ft_elem_clear(&sa);
-		return (0);
-	}
+	checking(&sa, &sb);
 	ft_elem_clear(&sa);
 	return (0);
 }

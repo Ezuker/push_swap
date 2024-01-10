@@ -32,6 +32,13 @@ typedef struct s_elem
 	int				index;
 }				t_elem;
 
+typedef struct s_action
+{
+	char	*name;
+	struct s_action	*next;
+}				t_action;
+
+
 t_bool	do_sa(t_elem **stack, t_bool print);
 t_bool	do_sb(t_elem **stack, t_bool print);
 t_bool	do_ss(t_elem **stack_a, t_elem **stack_b);
