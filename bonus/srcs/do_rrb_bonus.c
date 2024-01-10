@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   do_rrb.c                                           :+:      :+:    :+:   */
+/*   do_rrb_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/27 11:50:23 by bcarolle          #+#    #+#             */
-/*   Updated: 2023/12/27 15:58:53 by bcarolle         ###   ########.fr       */
+/*   Created: 2024/01/10 20:16:32 by bcarolle          #+#    #+#             */
+/*   Updated: 2024/01/10 20:16:32 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap_bonus.h"
+#include "../includes/checker_bonus.h"
 
 t_bool	do_rrb(t_elem **stack_b, t_bool print)
 {

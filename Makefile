@@ -21,11 +21,30 @@ SRC = \
 	./srcs/set_targets_utils.c \
 	./srcs/get_total.c \
 
+BONUS = \
+	./bonus/srcs/push_swap_bonus.c \
+	./bonus/srcs/push_swap_utils_bonus.c \
+	./bonus/srcs/do_sa_bonus.c \
+	./bonus/srcs/do_sb_bonus.c \
+	./bonus/srcs/do_ss_bonus.c \
+	./bonus/srcs/do_pb_bonus.c \
+	./bonus/srcs/do_pa_bonus.c \
+	./bonus/srcs/do_ra_bonus.c \
+	./bonus/srcs/do_rb_bonus.c \
+	./bonus/srcs/do_rr_bonus.c \
+	./bonus/srcs/do_rra_bonus.c \
+	./bonus/srcs/do_rrb_bonus.c \
+	./bonus/srcs/do_rrr_bonus.c \
+	./bonus/srcs/parsing_bonus.c \
+	./bonus/srcs/debug_bonus.c \
+
 OBJ = ${SRC:.c=.o}
+BOBJ = ${BONUS:.c=.o}
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -g
 RM = rm -rf
 NAME = push_swap
+NAME_BONUS = checker
 PRINTF = "./ft_printf"
 LIBS	= libftprintf.a
 
@@ -39,15 +58,24 @@ $(NAME): $(OBJ)
 	mv $(PRINTF)/libftprintf.a .
 	$(CC) $(OBJ) $(LIBS) -o $(NAME)
 
+bonus:	$(BOBJ)
+	make -C $(PRINTF)
+	mv $(PRINTF)/$(LIBS) ./bonus
+	$(CC) $(BOBJ) $(LIBS) -o $(NAME_BONUS)
+
 clean:
 	make clean -C $(PRINTF)
-	${RM} ${OBJ}
+	${RM} ${OBJ} $(BOBJ)
 
 fclean: clean
 	make fclean -C $(PRINTF)
 	${RM} ./libftprintf.a
+	${RM} ./bonus/libftprintf.a
 	${RM} ${NAME}
+	${RM} $(NAME_BONUS)
 
 re: fclean all
 
-.PHONY : all clean fclean re
+
+
+.PHONY : all clean fclean re bonus

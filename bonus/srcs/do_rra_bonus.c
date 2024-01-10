@@ -1,31 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   do_rra.c                                           :+:      :+:    :+:   */
+/*   do_rra_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/24 20:13:08 by bcarolle          #+#    #+#             */
-/*   Updated: 2023/12/27 15:57:43 by bcarolle         ###   ########.fr       */
+/*   Created: 2024/01/10 20:16:27 by bcarolle          #+#    #+#             */
+/*   Updated: 2024/01/10 20:16:27 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap_bonus.h"
+#include "../includes/checker_bonus.h"
 
 t_bool	do_rra(t_elem **stack_a, t_bool print)
 {
 	t_elem	*last;
-	t_elem	*temp;
+	t_elem	*tmp;
 
-	temp = *stack_a;
 	last = ft_lastelem(*stack_a);
-	last->next = temp;
-	last->prev->next = NULL;
+	if (stack_length(*stack_a) == 1)
+		return (true);
+	if (last->prev)
+		last->prev->next = NULL;
+	tmp = (*stack_a);
+	(*stack_a)->prev = last;
+	(*stack_a) = (*stack_a)->prev;
+	last->next = tmp;
 	last->prev = NULL;
-	*stack_a = last;
-	last->next->prev = last;
-	last = ft_lastelem(*stack_a);
-	last->next = NULL;
 	if (print)
 		ft_printf("rra\n");
 	return (true);

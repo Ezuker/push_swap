@@ -1,49 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_utils.c                                  :+:      :+:    :+:   */
+/*   push_swap_utils_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/23 23:02:32 by bcarolle          #+#    #+#             */
-/*   Updated: 2023/12/27 16:21:56 by bcarolle         ###   ########.fr       */
+/*   Created: 2024/01/10 20:17:01 by bcarolle          #+#    #+#             */
+/*   Updated: 2024/01/10 20:17:01 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap_bonus.h"
-
-void	print_stack(t_elem	*stack_a, t_elem *stack_b)
-{
-	ft_printf("A  B\n");
-	while (stack_a != NULL || stack_b != NULL)
-	{
-		if (stack_a)
-		{
-			ft_printf("%d  ", stack_a->number);
-			stack_a = stack_a->next;
-		}
-		else
-			ft_printf("    ");
-		if (stack_b)
-		{
-			ft_printf("%d", stack_b->number);
-			stack_b = stack_b->next;
-		}
-		ft_printf("\n");
-	}
-}
-
-void	print_data(t_elem *stack_a)
-{
-	while (stack_a != NULL)
-	{
-		ft_printf("content = %d\n", stack_a->number);
-		ft_printf("actual = %p\n", stack_a);
-		ft_printf("prev = %p\n", stack_a->prev);
-		ft_printf("next = %p\n\n", stack_a->next);
-		stack_a = stack_a->next;
-	}
-}
+#include "../includes/checker_bonus.h"
 
 t_elem	*ft_lastelem(t_elem *lst)
 {
@@ -70,13 +37,51 @@ t_bool	ft_addback(t_elem **lst, t_elem *node)
 	return (true);
 }
 
-t_elem	*ft_str_to_elem(char *str)
+int	stack_length(t_elem	*stack)
 {
-	t_elem	*node;
+	int	i;
 
-	node = malloc(sizeof(t_elem));
-	node->number = ft_atoi(str);
-	node->next = NULL;
-	node->prev = NULL;
-	return (node);
+	i = 0;
+	while (stack)
+	{
+		i++;
+		stack = stack->next;
+	}
+	return (i);
+}
+
+t_elem	*get_min_stack(t_elem *stack)
+{
+	int		save;
+	t_elem	*addr;
+
+	save = 2147483647;
+	while (stack)
+	{
+		if (save > stack->number)
+		{
+			save = stack->number;
+			addr = stack;
+		}
+		stack = stack->next;
+	}
+	return (addr);
+}
+
+t_elem	*get_max_stack(t_elem *stack)
+{
+	int		save;
+	t_elem	*addr;
+
+	save = -2147483648;
+	while (stack)
+	{
+		if (save < stack->number)
+		{
+			save = stack->number;
+			addr = stack;
+		}
+		stack = stack->next;
+	}
+	return (addr);
 }

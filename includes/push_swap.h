@@ -57,7 +57,6 @@ t_bool	ft_addback(t_elem **lst, t_elem *node);
 t_elem	*ft_str_to_elem(char *str);
 void	print_data(t_elem *stack_a);
 t_bool	only_nb(char *str);
-t_bool	repeated_number(int argc, char **argv);
 t_bool	parsing(int argc, char **argv, t_elem **sa);
 int		stack_length(t_elem	*stack);
 t_elem	*get_max_stack(t_elem *stack);
@@ -80,5 +79,6 @@ int		get_total_below_median(t_elem *sa);
 int		get_total_other(int length_a, t_elem *sa, t_elem *sb);
 t_elem	*cost_analysis(t_elem *sa, t_elem *sb);
 void	sort_four(t_elem **sa, t_elem **sb);
+t_bool	repeated_number(t_elem	*sa);
 
 #endif

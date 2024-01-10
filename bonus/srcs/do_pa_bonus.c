@@ -1,27 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   do_pa.c                                            :+:      :+:    :+:   */
+/*   do_pa_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/24 10:41:22 by bcarolle          #+#    #+#             */
-/*   Updated: 2023/12/27 15:44:11 by bcarolle         ###   ########.fr       */
+/*   Created: 2024/01/10 20:15:57 by bcarolle          #+#    #+#             */
+/*   Updated: 2024/01/10 20:15:57 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/push_swap_bonus.h"
+#include "../includes/checker_bonus.h"
+
+static void	create_stack(t_elem **sa, t_elem **sb)
+{
+	*sa = *sb;
+	*sb = (*sb)->next;
+	(*sa)->next = NULL;
+	(*sa)->prev = NULL;
+	(*sb)->prev = NULL;
+}
 
 t_bool	do_pa(t_elem **sa, t_elem **sb)
 {
-	t_elem	*head;
+	t_elem	*former_head;
+	t_elem	*last;
 
-	head = *sa;
-	*sa = *sb;
-	*sb = (*sb)->next;
-	(*sa)->next = head;
-	(*sa)->prev = NULL;
-	(*sb)->prev = NULL;
+	if (!sa || !*sa)
+		create_stack(sa, sb);
+	else
+	{
+		last = ft_lastelem(*sa);
+		former_head = *sa;
+		*sa = *sb;
+		*sb = (*sb)->next;
+		(*sa)->next = former_head;
+		(*sa)->next->prev = (*sa);
+		(*sa)->prev = NULL;
+		if (*sb)
+			(*sb)->prev = NULL;
+		last->next = NULL;
+	}
 	ft_printf("pa\n");
 	return (true);
 }

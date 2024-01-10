@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   checker_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/23 21:57:41 by bcarolle          #+#    #+#             */
-/*   Updated: 2023/12/27 15:55:55 by bcarolle         ###   ########.fr       */
+/*   Created: 2024/01/10 20:15:43 by bcarolle          #+#    #+#             */
+/*   Updated: 2024/01/10 20:15:43 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_BONUS_H
-# define PUSH_SWAP_BONUS_H
+#ifndef CHECKER_BONUS_H
+# define CHECKER_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -27,7 +27,9 @@ typedef struct s_elem
 {
 	struct s_elem	*prev;
 	struct s_elem	*next;
+	struct s_elem	*target;
 	int				number;
+	int				index;
 }				t_elem;
 
 t_bool	do_sa(t_elem **stack, t_bool print);
@@ -46,5 +48,13 @@ void	print_stack(t_elem	*stack_a, t_elem *stack_b);
 t_bool	ft_addback(t_elem **lst, t_elem *node);
 t_elem	*ft_str_to_elem(char *str);
 void	print_data(t_elem *stack_a);
+t_bool	only_nb(char *str);
+t_bool	parsing(int argc, char **argv, t_elem **sa);
+int		stack_length(t_elem	*stack);
+t_elem	*get_max_stack(t_elem *stack);
+t_elem	*get_min_stack(t_elem *stack);
+void	add_index(t_elem	*sa);
+t_bool	is_sorted(t_elem *stack);
+t_bool	repeated_number(t_elem	*sa);
 
 #endif

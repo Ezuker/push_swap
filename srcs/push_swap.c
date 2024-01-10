@@ -100,13 +100,19 @@ int	main(int argc, char **argv)
 
 	sa = NULL;
 	sb = NULL;
-	if (argc < 2 || !parsing(argc, argv, &sa) || repeated_number(argc, argv))
+	if (argc < 2 || !parsing(argc, argv, &sa))
 	{
 		ft_elem_clear(&sa);
 		write(2, "Error\n", 6);
 		return (0);
 	}
 	add_index(sa);
+	if (repeated_number(sa))
+	{
+		ft_elem_clear(&sa);
+		write(2, "Error\n", 6);
+		return (0);
+	}
 	if (is_sorted(sa))
 	{
 		ft_elem_clear(&sa);
