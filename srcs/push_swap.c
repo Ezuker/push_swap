@@ -102,7 +102,9 @@ int	main(int argc, char **argv)
 
 	sa = NULL;
 	sb = NULL;
-	if (argc < 2 || !parsing(argc, argv, &sa))
+	if (argc < 2)
+		return (0);
+	if (!parsing(argc, argv, &sa))
 	{
 		ft_elem_clear(&sa);
 		write(2, "Error\n", 6);
