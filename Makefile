@@ -76,7 +76,7 @@ fclean: clean
 	${RM} ${NAME}
 	${RM} $(NAME_BONUS)
 
-re: fclean all
+re: fclean all bonus
 
 
 
