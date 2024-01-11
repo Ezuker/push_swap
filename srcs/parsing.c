@@ -6,7 +6,7 @@
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 15:29:32 by bcarolle          #+#    #+#             */
-/*   Updated: 2024/01/11 17:30:55 by bcarolle         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:38:18 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_bool	only_nb(char *str)
 			return (false);
 		else if ((str[i] == 45 || str[i] == 43)
 			&& ((!ft_isdigit(str[i + 1]))
-			|| (i > 0 && str[i - 1] != 32)))
+				|| (i > 0 && str[i - 1] != 32)))
 			return (false);
 		i++;
 	}
