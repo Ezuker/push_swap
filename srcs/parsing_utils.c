@@ -6,11 +6,21 @@
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/11 17:00:29 by bcarolle          #+#    #+#             */
-/*   Updated: 2024/01/11 17:09:31 by bcarolle         ###   ########.fr       */
+/*   Updated: 2024/01/11 17:44:15 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/push_swap.h"
+
+void	free_tab_index(char **temp, int index)
+{
+	while (temp[index])
+	{
+		free(temp[index]);
+		index++;
+	}
+	free(temp);
+}
 
 t_bool	add_elem(t_elem **sa, int index, char **argv)
 {
@@ -24,7 +34,10 @@ t_bool	add_elem(t_elem **sa, int index, char **argv)
 	{
 		node = ft_str_to_elem(temp[j]);
 		if (!node)
+		{
+			free_tab_index(temp, j);
 			return (false);
+		}
 		ft_addback(sa, node);
 		free(temp[j]);
 	}
@@ -36,10 +49,10 @@ t_elem	*ft_str_to_elem(char *str)
 {
 	t_elem	*node;
 
+	if (ft_atoi(str) > 2147483647 || ft_atoi(str) < -2147483648)
+		return (NULL);
 	node = malloc(sizeof(t_elem));
 	if (!node)
-		return (NULL);
-	if (ft_atoi(str) > 2147483647 || ft_atoi(str) < -2147483648)
 		return (NULL);
 	node->number = ft_atoi(str);
 	node->next = NULL;
