@@ -20,6 +20,7 @@ SRC = \
 	./srcs/do_action_b.c \
 	./srcs/set_targets_utils.c \
 	./srcs/get_total.c \
+	./srcs/parsing_utils.c \
 
 BONUS = \
 	./bonus/srcs/push_swap_bonus.c \
@@ -39,6 +40,8 @@ BONUS = \
 	./bonus/srcs/debug_bonus.c \
 	./bonus/srcs/get_next_line_bonus.c \
 	./bonus/srcs/action_bonus.c \
+	./bonus/srcs/do_actions_bonus.c \
+	./bonus/srcs/parsing_utils_bonus.c \
 
 OBJ = ${SRC:.c=.o}
 BOBJ = ${BONUS:.c=.o}

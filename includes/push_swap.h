@@ -80,5 +80,7 @@ int		get_total_other(int length_a, t_elem *sa, t_elem *sb);
 t_elem	*cost_analysis(t_elem *sa, t_elem *sb);
 void	sort_four(t_elem **sa, t_elem **sb);
 t_bool	repeated_number(t_elem	*sa);
+t_elem	*ft_str_to_elem(char *str);
+t_bool	add_elem(t_elem **sa, int index, char **argv);
 
 #endif

@@ -83,6 +83,8 @@ void	ft_elem_clear(t_elem **sa)
 
 void	sorting(t_elem **sa, t_elem **sb)
 {
+	if (is_sorted(*sa))
+		return ;
 	if (stack_length(*sa) == 2 && !is_sorted(*sa))
 		do_sa(sa, 1);
 	else if (stack_length(*sa) == 3)
@@ -111,11 +113,6 @@ int	main(int argc, char **argv)
 	{
 		ft_elem_clear(&sa);
 		write(2, "Error\n", 6);
-		return (0);
-	}
-	if (is_sorted(sa))
-	{
-		ft_elem_clear(&sa);
 		return (0);
 	}
 	sorting(&sa, &sb);

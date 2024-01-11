@@ -18,6 +18,7 @@
 # include "../../ft_printf/ft_printf.h"
 
 # define BUFFER_SIZE 1
+
 typedef enum e_bool
 {
 	false,
@@ -35,10 +36,9 @@ typedef struct s_elem
 
 typedef struct s_action
 {
-	char	*name;
+	char			*name;
 	struct s_action	*next;
 }				t_action;
-
 
 t_bool	do_sa(t_elem **stack);
 t_bool	do_sb(t_elem **stack);
@@ -66,5 +66,8 @@ t_bool	is_sorted(t_elem *stack);
 t_bool	repeated_number(t_elem	*sa);
 t_bool	get_next_line(t_action **action);
 t_bool	add_action(char *name, t_action **action);
+void	do_action(t_action *action, t_elem **sa, t_elem **sb);
+t_bool	add_elem(t_elem **sa, int index, char **argv);
+t_elem	*ft_str_to_elem(char *str);
 
 #endif

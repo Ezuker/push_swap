@@ -6,7 +6,7 @@
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:41:44 by bcarolle          #+#    #+#             */
-/*   Updated: 2024/01/11 03:36:21 by bcarolle         ###   ########.fr       */
+/*   Updated: 2024/01/11 14:53:17 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ t_bool	get_next_line(t_action **action)
 {
 	char	*save;
 	char	*buffer;
-	
+
 	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (buffer == NULL)
 		return (false);
@@ -153,6 +153,5 @@ t_bool	get_next_line(t_action **action)
 		free(save);
 		save = NULL;
 	}
-	
 	return (true);
 }
