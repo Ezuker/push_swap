@@ -120,5 +120,6 @@ int	main(int argc, char **argv)
 	}
 	checking(&sa, &sb);
 	ft_elem_clear(&sa);
+	ft_elem_clear(&sb);
 	return (0);
 }

@@ -18,7 +18,7 @@ t_bool	do_sb(t_elem **stack)
 	t_elem	*second;
 	t_elem	*third;
 
-	if (!stack || !*stack)
+	if (!stack || !*stack || stack_length(*stack) < 2)
 		return (false);
 	first = *stack;
 	second = (*stack)->next;

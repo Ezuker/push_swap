@@ -17,7 +17,7 @@ t_bool	do_rb(t_elem **sb)
 	t_elem	*temp;
 	t_elem	*last;
 
-	if (!sb || !*sb)
+	if (!sb || !*sb || stack_length(*sb) < 2)
 		return (false);
 	temp = *sb;
 	last = ft_lastelem(*sb);

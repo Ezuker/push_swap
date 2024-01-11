@@ -6,7 +6,7 @@
 /*   By: bcarolle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 18:41:44 by bcarolle          #+#    #+#             */
-/*   Updated: 2024/01/11 03:27:39 by bcarolle         ###   ########.fr       */
+/*   Updated: 2024/01/11 03:36:21 by bcarolle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,10 @@ char	*get_line(char *save, t_action **action, int byte_read, char *buffer)
 			if (add_action(save, action))
 				save = get_save(save);
 			else
+			{
+				free(save);
 				return (NULL);
+			}
 		}
 	}
 	return (save);
@@ -141,6 +144,8 @@ t_bool	get_next_line(t_action **action)
 	if (!save)
 		return (false);
 	save = get_line(save, action, 1, buffer);
+	if (buffer != NULL)
+		free(buffer);
 	if (!save)
 		return (false);
 	if (save)
@@ -148,7 +153,6 @@ t_bool	get_next_line(t_action **action)
 		free(save);
 		save = NULL;
 	}
-	if (buffer != NULL)
-		free(buffer);
+	
 	return (true);
 }
