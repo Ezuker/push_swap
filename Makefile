@@ -37,6 +37,8 @@ BONUS = \
 	./bonus/srcs/do_rrr_bonus.c \
 	./bonus/srcs/parsing_bonus.c \
 	./bonus/srcs/debug_bonus.c \
+	./bonus/srcs/get_next_line_bonus.c \
+	./bonus/srcs/action_bonus.c \
 
 OBJ = ${SRC:.c=.o}
 BOBJ = ${BONUS:.c=.o}
@@ -60,7 +62,7 @@ $(NAME): $(OBJ)
 
 bonus:	$(BOBJ)
 	make -C $(PRINTF)
-	mv $(PRINTF)/$(LIBS) ./bonus
+	mv $(PRINTF)/libftprintf.a .
 	$(CC) $(BOBJ) $(LIBS) -o $(NAME_BONUS)
 
 clean:

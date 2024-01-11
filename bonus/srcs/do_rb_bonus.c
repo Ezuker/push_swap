@@ -12,11 +12,13 @@
 
 #include "../includes/checker_bonus.h"
 
-t_bool	do_rb(t_elem **sb, t_bool print)
+t_bool	do_rb(t_elem **sb)
 {
 	t_elem	*temp;
 	t_elem	*last;
 
+	if (!sb || !*sb)
+		return (false);
 	temp = *sb;
 	last = ft_lastelem(*sb);
 	*sb = (*sb)->next;
@@ -24,7 +26,5 @@ t_bool	do_rb(t_elem **sb, t_bool print)
 	last->next = temp;
 	last->next->next = NULL;
 	last->next->prev = last;
-	if (print == true)
-		ft_printf("rb\n");
 	return (true);
 }

@@ -1,12 +1,14 @@
 {
   "files.associations": {
-	"push_swap.h": "c",
-	"push_swap_bonus.h": "c",
-	"ft_printf.h": "c",
-	"libft.h": "c",
-	"string_view": "c",
-	"regex": "c"
-},
+    "push_swap.h": "c",
+    "push_swap_bonus.h": "c",
+    "ft_printf.h": "c",
+    "libft.h": "c",
+    "string_view": "c",
+    "regex": "c",
+    "checker_bonus.h": "c",
+    "typeinfo": "c"
+  },
   "C_Cpp_Runner.cCompilerPath": "gcc",
   "C_Cpp_Runner.cppCompilerPath": "g++",
   "C_Cpp_Runner.debuggerPath": "gdb",

@@ -35,14 +35,48 @@ t_bool	is_sorted(t_elem *stack)
 	return (true);
 }
 
-void	a_to_action()
+void	ft_action_clear(t_action **action)
 {
-	
+	t_action	*tmp;
+
+	while (*action)
+	{
+		tmp = *action;
+		if ((*action)->name)
+			free((*action)->name);
+		(*action) = (*action)->next;
+		free(tmp);
+	}
 }
 
-void	read_stdin(t_action **action)
+void	do_action(t_action *action, t_elem **sa, t_elem **sb)
 {
-
+	while (action)
+	{
+		if (!ft_strcmp((action)->name, "sa\n"))
+			do_sa(sa);
+		if (!ft_strcmp((action)->name, "sb\n"))
+			do_sb(sb);
+		if (!ft_strcmp((action)->name, "ss\n"))
+			do_ss(sa, sb);
+		if (!ft_strcmp((action)->name, "pa\n"))
+			do_pa(sa, sb);
+		if (!ft_strcmp((action)->name, "pb\n"))
+			do_pb(sa, sb);
+		if (!ft_strcmp((action)->name, "ra\n"))
+			do_ra(sa);
+		if (!ft_strcmp((action)->name, "rb\n"))
+			do_rb(sb);
+		if (!ft_strcmp((action)->name, "rr\n"))
+			do_rr(sa, sb);
+		if (!ft_strcmp((action)->name, "rra\n"))
+			do_rra(sa);
+		if (!ft_strcmp((action)->name, "rrb\n"))
+			do_rrb(sb);
+		if (!ft_strcmp((action)->name, "rrr\n"))
+			do_rrr(sa, sb);
+		(action) = (action)->next;
+	}
 }
 
 void	checking(t_elem **sa, t_elem **sb)
@@ -50,11 +84,18 @@ void	checking(t_elem **sa, t_elem **sb)
 	t_action	*action;
 	
 	action = NULL;
-	read_stdin(&action);
-
-	//Appliquer les actions
-
-	//verif si c'est sort
+	if (!get_next_line(&action))
+	{
+		write(2,"Error\n", 6);
+		ft_action_clear(&action);
+		return ;
+	}
+	do_action(action, sa, sb);
+	if (is_sorted(*sa))
+		write(1, "OK\n", 3);
+	else
+		write(1, "KO\n", 3);
+	ft_action_clear(&action);
 }
 
 int	main(int argc, char **argv)

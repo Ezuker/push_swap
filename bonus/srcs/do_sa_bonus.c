@@ -12,12 +12,14 @@
 
 #include "../includes/checker_bonus.h"
 
-t_bool	do_sa(t_elem **stack, t_bool print)
+t_bool	do_sa(t_elem **stack)
 {
 	t_elem	*first;
 	t_elem	*second;
 	t_elem	*third;
 
+	if (!stack || !*stack)
+		return (false);
 	first = *stack;
 	second = (*stack)->next;
 	third = NULL;
@@ -30,7 +32,5 @@ t_bool	do_sa(t_elem **stack, t_bool print)
 	if (third)
 		third->prev = first;
 	*stack = second;
-	if (print)
-		ft_printf("sa\n");
 	return (true);
 }

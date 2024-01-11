@@ -26,6 +26,8 @@ t_bool	do_pa(t_elem **sa, t_elem **sb)
 	t_elem	*former_head;
 	t_elem	*last;
 
+	if (!sb || !*sb)
+		return (false);
 	if (!sa || !*sa)
 		create_stack(sa, sb);
 	else
@@ -41,6 +43,5 @@ t_bool	do_pa(t_elem **sa, t_elem **sb)
 			(*sb)->prev = NULL;
 		last->next = NULL;
 	}
-	ft_printf("pa\n");
 	return (true);
 }

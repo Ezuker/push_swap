@@ -12,14 +12,25 @@
 
 #include "../includes/checker_bonus.h"
 
-t_bool	do_sb(t_elem **stack, t_bool print)
+t_bool	do_sb(t_elem **stack)
 {
-	t_elem	*temp;
+	t_elem	*first;
+	t_elem	*second;
+	t_elem	*third;
 
-	temp = (*stack);
-	(*stack) = (*stack)->next;
-	(*stack)->next = temp;
-	if (print)
-		ft_printf("sb\n");
+	if (!stack || !*stack)
+		return (false);
+	first = *stack;
+	second = (*stack)->next;
+	third = NULL;
+	if ((*stack)->next->next)
+		third = (*stack)->next->next;
+	first->next = second->next;
+	first->prev = second;
+	second->next = first;
+	second->prev = NULL;
+	if (third)
+		third->prev = first;
+	*stack = second;
 	return (true);
 }

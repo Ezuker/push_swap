@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include "../../ft_printf/ft_printf.h"
 
+# define BUFFER_SIZE 1
 typedef enum e_bool
 {
 	false,
@@ -39,16 +40,16 @@ typedef struct s_action
 }				t_action;
 
 
-t_bool	do_sa(t_elem **stack, t_bool print);
-t_bool	do_sb(t_elem **stack, t_bool print);
+t_bool	do_sa(t_elem **stack);
+t_bool	do_sb(t_elem **stack);
 t_bool	do_ss(t_elem **stack_a, t_elem **stack_b);
 t_bool	do_pb(t_elem **sa, t_elem **sb);
 t_bool	do_pa(t_elem **sa, t_elem **sb);
-t_bool	do_ra(t_elem **sa, t_bool print);
-t_bool	do_rb(t_elem **sb, t_bool print);
+t_bool	do_ra(t_elem **sa);
+t_bool	do_rb(t_elem **sb);
 t_bool	do_rr(t_elem **sa, t_elem **sb);
-t_bool	do_rra(t_elem **stack_a, t_bool print);
-t_bool	do_rrb(t_elem **stack_b, t_bool print);
+t_bool	do_rra(t_elem **stack_a);
+t_bool	do_rrb(t_elem **stack_b);
 t_bool	do_rrr(t_elem **sa, t_elem **sb);
 t_elem	*ft_lastelem(t_elem *lst);
 void	print_stack(t_elem	*stack_a, t_elem *stack_b);
@@ -63,5 +64,7 @@ t_elem	*get_min_stack(t_elem *stack);
 void	add_index(t_elem	*sa);
 t_bool	is_sorted(t_elem *stack);
 t_bool	repeated_number(t_elem	*sa);
+t_bool	get_next_line(t_action **action);
+t_bool	add_action(char *name, t_action **action);
 
 #endif

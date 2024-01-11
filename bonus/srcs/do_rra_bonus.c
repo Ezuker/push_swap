@@ -12,11 +12,13 @@
 
 #include "../includes/checker_bonus.h"
 
-t_bool	do_rra(t_elem **stack_a, t_bool print)
+t_bool	do_rra(t_elem **stack_a)
 {
 	t_elem	*last;
 	t_elem	*tmp;
 
+	if (!stack_a || !*stack_a)
+		return (false);
 	last = ft_lastelem(*stack_a);
 	if (stack_length(*stack_a) == 1)
 		return (true);
@@ -27,7 +29,5 @@ t_bool	do_rra(t_elem **stack_a, t_bool print)
 	(*stack_a) = (*stack_a)->prev;
 	last->next = tmp;
 	last->prev = NULL;
-	if (print)
-		ft_printf("rra\n");
 	return (true);
 }

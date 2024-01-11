@@ -14,7 +14,11 @@
 
 t_bool	do_ss(t_elem **stack_a, t_elem **stack_b)
 {
-	do_sa(stack_a, 0);
-	do_sb(stack_b, 0);
+	if (!stack_a || !*stack_a)
+		return (false);
+	if (!stack_b || !*stack_b)
+		return (false);
+	do_sa(stack_a);
+	do_sb(stack_b);
 	return (true);
 }

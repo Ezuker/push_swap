@@ -14,8 +14,11 @@
 
 t_bool	do_rr(t_elem **stack_a, t_elem **stack_b)
 {
-	do_ra(stack_a, 0);
-	do_rb(stack_b, 0);
-	ft_printf("rr\n");
+	if (!stack_a || !*stack_a)
+		return (false);
+	if (!stack_b || !*stack_b)
+		return (false);
+	do_ra(stack_a);
+	do_rb(stack_b);
 	return (true);
 }
